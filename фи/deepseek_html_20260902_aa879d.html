@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Репетитор по физике | Анна Смирнова</title>
+
+    <!-- Шрифты и иконки -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        /* ----- CSS-переменные ----- */
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --glass-blur: 20px;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.85);
+            --accent: #a78bfa;
+            --accent-light: #c4b5fd;
+            --radius: 24px;
+            --transition: 0.3s ease;
+        }
+
+        /* ----- Общие стили ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #0b0a1a 0%, #1a1a3e 40%, #2d1b4e 100%);
+            min-height: 100vh;
+            color: var(--text-primary);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Контейнер с основным стеклом */
+        .glass-container {
+            max-width: 1100px;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: var(--glass-shadow);
+            padding: 40px 40px 30px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        /* Анимированные «жидкие» блики */
+        .glass-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(167, 139, 250, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.10) 0%, transparent 50%);
+            animation: liquidShift 12s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes liquidShift {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            100% {
+                transform: translate(5%, -5%) scale(1.05) rotate(3deg);
+            }
+        }
+
+        /* Всё содержимое поверх бликов */
+        .glass-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ----- Стили для стеклянных карточек ----- */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            box-shadow: var(--glass-shadow);
+            padding: 28px 30px;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+        }
+
+        /* ----- Навигация ----- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            color: var(--accent-light);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 400;
+            transition: color var(--transition);
+            border-bottom: 1px solid transparent;
+        }
+        .nav-links a:hover {
+            color: #ffffff;
+            border-bottom-color: var(--accent);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0b0a1a;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background var(--transition), transform var(--transition);
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: scale(1.02);
+        }
+
+        /* ----- Hero-секция ----- */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .hero-text {
+            flex: 1 1 350px;
+        }
+        .hero-text .badge {
+            display: inline-block;
+            background: rgba(167, 139, 250, 0.20);
+            border: 1px solid rgba(167, 139, 250, 0.30);
+            border-radius: 100px;
+            padding: 6px 18px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent-light);
+            margin-bottom: 16px;
+        }
+        .hero-text h1 {
+            font-size: 44px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 18px;
+        }
+        .hero-text h1 span {
+            color: var(--accent-light);
+        }
+        .hero-text p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .hero-image {
+            flex: 0 0 200px;
+            text-align: center;
+        }
+        .hero-image img {
+            width: 100%;
+            max-width: 200px;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--glass-border);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            background: #1a1a3e;
+        }
+
+        /* ----- Секция "О себе" ----- */
+        .about {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .about .glass-card {
+            flex: 1 1 280px;
+        }
+        .about .glass-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .about .glass-card h3 i {
+            color: var(--accent);
+        }
+        .about .glass-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        /* ----- Услуги / Цены ----- */
+        .services {
+            margin-bottom: 50px;
+        }
+        .services h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 28px;
+            text-align: center;
+        }
+        .services h2 i {
+            color: var(--accent);
+            margin-right: 8px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .service-item {
+            text-align: center;
+        }
+        .service-item .icon-wrap {
+            font-size: 36px;
+            color: var(--accent-light);
+            margin-bottom: 12px;
+        }
+        .service-item h4 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .service-item .price {
+            display: inline-block;
+            margin-top: 8px;
+            background: rgba(167, 139, 250, 0.15);
+            padding: 4px 16px;
+            border-radius: 100px;
+            font-weight: 600;
+            color: var(--accent-light);
+            font-size: 15px;
+        }
+        .service-item p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        /* ----- Отзывы ----- */
+        .testimonials {
+            margin-bottom: 50px;
+        }
+        .testimonials h2 {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+        .testimonial-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 22px 24px;
+            transition: var(--transition);
+        }
+        .testimonial-item:hover {
+            transform: translateY(-3px);
+        }
+        .testimonial-item .stars {
+            color: #fbbf24;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+        .testimonial-item blockquote {
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .testimonial-item .author {
+            margin-top: 12px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* ----- Контакты + форма ----- */
+        .contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        .contact-info,
+        .contact-form {
+            flex: 1 1 280px;
+        }
+
+        .contact-info .glass-card h3 {
+            font-size: 22px;
+            margin-bottom: 14px;
+        }
+        .contact-info .glass-card p {
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+        .contact-info .glass-card .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+        .contact-info .glass-card .contact-row i {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(167, 139, 250, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-light);
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 14px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(4px);
+            color: #ffffff;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: border var(--transition);
+        }
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.40);
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        /* ----- Футер ----- */
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 24px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        .footer .socials {
+            display: flex;
+            gap: 16px;
+        }
+        .footer .socials a {
+            color: var(--text-secondary);
+            font-size: 20px;
+            transition: color var(--transition);
+        }
+        .footer .socials a:hover {
+            color: #ffffff;
+        }
+
+        /* ----- Адаптивность ----- */
+        @media (max-width: 768px) {
+            .glass-container {
+                padding: 24px 18px 20px;
+            }
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 16px;
+            }
+            .nav-links {
+                justify-content: center;
+                gap: 18px;
+            }
+            .hero-text h1 {
+                font-size: 32px;
+            }
+            .hero-image {
+                flex: 0 0 140px;
+            }
+            .hero-image img {
+                max-width: 140px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-text h1 {
+                font-size: 28px;
+            }
+            .btn-primary {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            .hero-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-container">
+
+        <div class="glass-content">
+
+            <!-- ===== НАВИГАЦИЯ ===== -->
+            <header class="navbar">
+                <div class="logo">Физика <span>с Анной</span></div>
+                <nav class="nav-links">
+                    <a href="#about">Обо мне</a>
+                    <a href="#services">Услуги</a>
+                    <a href="#testimonials">Отзывы</a>
+                    <a href="#contact">Контакты</a>
+                </nav>
+                <a href="#contact" class="btn-primary">Записаться</a>
+            </header>
+
+            <!-- ===== HERO ===== -->
+            <section class="hero">
+                <div class="hero-text">
+                    <span class="badge"><i class="fas fa-atom"></i> Репетитор по физике</span>
+                    <h1>Сделаем физику <span>понятной</span> и увлекательной</h1>
+                    <p>
+                        Помогаю ученикам 7–11 классов и студентам разобраться в сложных темах,
+                        подготовиться к ОГЭ, ЕГЭ и олимпиадам. Индивидуальный подход и наглядные примеры.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn-primary"><i class="fas fa-calendar-check"></i> Записаться на пробный урок</a>
+                        <a href="#services" style="color: var(--text-secondary); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border: 1px solid var(--glass-border); border-radius: 100px; transition: var(--transition);">
+                            <i class="fas fa-arrow-right"></i> Узнать цены
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/foto.png" alt="Анна Смирнова" />
+                </div>
+            </section>
+
+            <!-- ===== О СЕБЕ ===== -->
+            <section id="about" class="about">
+                <div class="glass-card">
+                    <h3><i class="fas fa-graduation-cap"></i> Образование</h3>
+                    <p>МГУ им. М.В. Ломоносова, физический факультет. Специализация — теоретическая физика. Преподаю с 2018 года.</p>
+                </div>
+                <div class="glass-card">
+                    <h3><i class="fas fa-chart-line"></i> Опыт</h3>
+                    <p>Более 300 учеников за 6 лет. Средний балл моих выпускников на ЕГЭ — 86 баллов. Регулярно повышаю квалификацию.</p>
+                </div>
+                <div class="glass-card">
+                    <h3><i class="fas fa-heart"></i> Подход</h3>
+                    <p>Объясняю сложное простым языком через жизненные примеры. На занятиях — никакой зубрёжки, только понимание.</p>
+                </div>
+            </section>
+
+            <!-- ===== УСЛУГИ ===== -->
+            <section id="services" class="services">
+                <h2><i class="fas fa-cog"></i> Услуги и стоимость</h2>
+                <div class="services-grid">
+
+                    <div class="glass-card service-item">
+                        <div class="icon-wrap"><i class="fas fa-child"></i></div>
+                        <h4>7–9 классы</h4>
+                        <span class="price">2 500 ₽ / 60 мин</span>
+                        <p>Повышение успеваемости, подготовка к ОГЭ, ликвидация пробелов.</p>
+                    </div>
+
+                    <div class="glass-card service-item">
+                        <div class="icon-wrap"><i class="fas fa-user-graduate"></i></div>
+                        <h4>10–11 классы</h4>
+                        <span class="price">3 000 ₽ / 60 мин</span>
+                        <p>Подготовка к ЕГЭ (база и профиль), олимпиадам и вступительным экзаменам.</p>
+                    </div>
+
+                    <div class="glass-card service-item">
+                        <div class="icon-wrap"><i class="fas fa-university"></i></div>
+                        <h4>Студенты</h4>
+                        <span class="price">3 500 ₽ / 60 мин</span>
+                        <p>Общая физика, термодинамика, электродинамика, квантовая механика.</p>
+                    </div>
+
+                    <div class="glass-card service-item">
+                        <div class="icon-wrap"><i class="fas fa-laptop"></i></div>
+                        <h4>Онлайн-занятия</h4>
+                        <span class="price">от 2 500 ₽</span>
+                        <p>На любой удобной платформе (Zoom, Skype, Discord) с интерактивной доской.</p>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ===== ОТЗЫВЫ ===== -->
+            <section id="testimonials" class="testimonials">
+                <h2><i class="fas fa-quote-left" style="color: var(--accent);"></i> Отзывы учеников</h2>
+                <div class="testimonials-grid">
+
+                    <div class="testimonial-item">
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <blockquote>«Физика перестала быть для меня страшным сном. Анна объясняет всё на пальцах, и я наконец начал понимать задачи!»</blockquote>
+                        <div class="author">— Иван, 10 класс</div>
+                    </div>
+
+                    <div class="testimonial-item">
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <blockquote>«За месяц занятий подтянула знания с "тройки" до твёрдой "четвёрки". Очень довольна подходом и вниманием к деталям.»</blockquote>
+                        <div class="author">— Екатерина, 9 класс</div>
+                    </div>
+
+                    <div class="testimonial-item">
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <blockquote>«Сдал ЕГЭ по физике на 92 балла. Огромное спасибо Анне за структурированный подход и поддержку.»</blockquote>
+                        <div class="author">— Алексей, выпускник</div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ===== КОНТАКТЫ + ФОРМА ===== -->
+            <section id="contact" class="contact">
+
+                <div class="contact-info">
+                    <div class="glass-card">
+                        <h3><i class="fas fa-phone-alt" style="color: var(--accent);"></i> Свяжитесь со мной</h3>
+                        <p>Выберите удобный способ — я отвечу на все вопросы и помогу подобрать время для первого занятия.</p>
+                        <div class="contact-row">
+                            <i class="fas fa-phone"></i>
+                            <span>+7 (999) 123-45-67</span>
+                        </div>
+                        <div class="contact-row">
+                            <i class="fas fa-envelope"></i>
+                            <span>anna@physics-tutor.ru</span>
+                        </div>
+                        <div class="contact-row">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Москва, онлайн — по всему миру</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <div class="glass-card">
+                        <h3 style="font-size: 20px; margin-bottom: 12px;"><i class="fas fa-pen"></i> Напишите мне</h3>
+                        <form>
+                            <input type="text" placeholder="Ваше имя" required />
+                            <input type="email" placeholder="E-mail" required />
+                            <input type="tel" placeholder="Телефон" />
+                            <textarea placeholder="Коротко о запросе: класс, цель занятий..." rows="3"></textarea>
+                            <button type="submit" class="btn-primary" style="width: 100%; text-align: center; justify-content: center;">
+                                <i class="fas fa-paper-plane"></i> Отправить
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ===== ФУТЕР ===== -->
+            <footer class="footer">
+                <span>© 2026 Физика с Анной. Все права защищены.</span>
+                <div class="socials">
+                    <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" aria-label="VK"><i class="fab fa-vk"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </footer>
+
+        </div><!-- /glass-content -->
+    </div><!-- /glass-container -->
+
+</body>
+</html>
